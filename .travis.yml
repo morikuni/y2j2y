@@ -3,6 +3,13 @@ language: go
 go:
   - 1.7.x
 
+install:
+  - mkdir $GOPATH/bin
+  - curl https://glide.sh/get | sh
+  - glide install
+
+script: go test -v $(glide nv)
+
 before_deploy:
   - go get github.com/mitchellh/gox
   - gox -output "release/{{.Dir}}-${TRAVIS_TAG}-{{.OS}}-{{.Arch}}/{{.Dir}}" -os "darwin linux windows" -arch "amd64 386" -ldflags "-X main.Version=${TRAVIS_TAG}" ./cmd/json2yaml/
