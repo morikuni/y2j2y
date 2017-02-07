@@ -1,0 +1,20 @@
+language: go
+
+go:
+  - 1.7.x
+
+before_deploy:
+  - go get github.com/mitchellh/gox
+  - gox -output "release/{{.Dir}}-${TRAVIS_TAG}-{{.OS}}-{{.Arch}}/{{.Dir}}" -os "darwin linux windows" -arch "amd64 386" -ldflags "-X main.Version=${TRAVIS_TAG}" ./cmd/json2yaml/
+  - gox -output "release/{{.Dir}}-${TRAVIS_TAG}-{{.OS}}-{{.Arch}}/{{.Dir}}" -os "darwin linux windows" -arch "amd64 386" -ldflags "-X main.Version=${TRAVIS_TAG}" ./cmd/yaml2json/
+  - cd release
+  - for file in $(find ./*/* -type f); do zip $(basename $(dirname $file)).zip $file; done
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: "*.zip"
+  overwrite: true
+  on:
+    tags: true
