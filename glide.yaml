@@ -1,0 +1,3 @@
+package: github.com/morikuni/y2j2y
+import:
+- package: gopkg.in/yaml.v2
