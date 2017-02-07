@@ -1,5 +1,11 @@
 # y2j2y
-yaml to json / json to yaml converter
+[![Build Status](https://travis-ci.org/morikuni/y2j2y.svg?branch=master)](https://travis-ci.org/morikuni/y2j2y)
+
+yaml to json / json to yaml converter.
+
+## Install
+
+Download from [release page](https://github.com/morikuni/y2j2y/releases).
 
 ## Example
 
